@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.data.relational.core.mapping.Column;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -26,6 +27,12 @@ public class Compra {
     @Min(value = 1, message = "Debe comprar al menos un boleto")
     private Integer cantidadBoletos;
 
+    @Column("metodo_pago")
+    private String metodoPago;
+
+    @Column("codigo_pago")
+    private String codigoPago;
+
     private BigDecimal valorTotal;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -35,12 +42,16 @@ public class Compra {
     }
 
     public Compra(Integer id, Integer funcionId, String nombreCliente,
-                  Integer cantidadBoletos, BigDecimal valorTotal,
+                  Integer cantidadBoletos, String metodoPago,
+                  String codigoPago, BigDecimal valorTotal,
                   LocalDateTime fechaCompra) {
+
         this.id = id;
         this.funcionId = funcionId;
         this.nombreCliente = nombreCliente;
         this.cantidadBoletos = cantidadBoletos;
+        this.metodoPago = metodoPago;
+        this.codigoPago = codigoPago;
         this.valorTotal = valorTotal;
         this.fechaCompra = fechaCompra;
     }
@@ -75,6 +86,22 @@ public class Compra {
 
     public void setCantidadBoletos(Integer cantidadBoletos) {
         this.cantidadBoletos = cantidadBoletos;
+    }
+
+    public String getMetodoPago() {
+        return metodoPago;
+    }
+
+    public void setMetodoPago(String metodoPago) {
+        this.metodoPago = metodoPago;
+    }
+
+    public String getCodigoPago() {
+        return codigoPago;
+    }
+
+    public void setCodigoPago(String codigoPago) {
+        this.codigoPago = codigoPago;
     }
 
     public BigDecimal getValorTotal() {
